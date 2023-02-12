@@ -12,6 +12,7 @@ class Humans:
         self.move_right = False
         self.move_up = False
         self.move_down = False
+        self.gr = 0
 
     def draw(self, sc):
         if self.move_left:
@@ -22,10 +23,15 @@ class Humans:
             self.y -= 1
         if self.move_down:
             self.y += 1
-        pygame.draw.rect(sc, WHITE, (self.x, self.y, self.width, self.height))
+
+        # pygame.draw.rect(sc, WHITE, (self.x, self.y, self.width, self.height))
+        st = pygame.Surface((self.width, self.height))
+        st.fill(WHITE)
+        st.set_colorkey(((0, 0, 0)))
+        sc.blit(pygame.transform.rotate(st, self.gr), (self.x, self.y))
 
 
-class Weapons:
+class Weapons():
     def __init__(self, human):
         self.width = 4
         self.height = 4

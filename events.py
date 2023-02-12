@@ -1,4 +1,5 @@
 import pygame
+import math
 
 
 def events(human):
@@ -23,3 +24,11 @@ def events(human):
                 human.move_up = False
             elif event.key == pygame.K_DOWN or event.key == pygame.K_s:
                 human.move_down = False
+        elif event.type == pygame.MOUSEMOTION:
+
+            x, y = event.pos
+            x = x - human.x
+            y = - y + human.y
+            gr = x / math.sqrt(x*x + y*y)
+            gr = math.acos(gr) / math.pi * 180
+            human.gr = gr
