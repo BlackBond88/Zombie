@@ -1,20 +1,28 @@
 from settings import *
 from events import *
+from math import sqrt, pi, acos
 
 
 class Humans:
+    """
+    Класс, занимающийся главным героем
+    """
     def __init__(self):
-        self.x = WIDTH / 2
+        self.x = WIDTH / 2          # координаты главного героя (ГГ)
         self.y = HEIGHT / 2
-        self.width = 12
+        self.width = 12             # размеры главного героя
         self.height = 12
-        self.move_left = False
+        self.move_left = False      # параметр для движения главного героя при зажатой кнопке
         self.move_right = False
         self.move_up = False
         self.move_down = False
-        self.gr = 0
+        self.angle = 0              # угол между мышкой и положением главного героя
 
-    def draw(self, sc):
+    def draw(self, screen):
+        """
+        Функция, отвечающая за движение главного героя
+        screen: экран главной игры
+        """
         if self.move_left:
             self.x -= 1
         if self.move_right:
@@ -24,43 +32,66 @@ class Humans:
         if self.move_down:
             self.y += 1
 
-        # pygame.draw.rect(sc, WHITE, (self.x, self.y, self.width, self.height))
-        st = pygame.Surface((self.width, self.height))
-        st.fill(WHITE)
-        st.set_colorkey(((0, 0, 0)))
-        sc.blit(pygame.transform.rotate(st, self.gr), (self.x, self.y))
+        # отрисовка главного героя
+        main_hero = pg.Surface((self.width, self.height))                           # новая поверхность для героя
+        main_hero.fill(WHITE)                                                       # звет поверхности
+        main_hero.set_colorkey((1, 1, 1))                                           # скрывает ненужные поверхности..
+        # отрисовывает поверхность в полученных координатах под углом (angle) к курсору
+        screen.blit(pg.transform.rotate(main_hero, self.angle), (self.x, self.y))
+
+    def mouse_angle(self, mouse_position):
+        """
+        Функция, которая высчитывает угол между курсором и главным героем
+        mouse_position: координаты мышки в формате (x, y)
+        """
+        mouse_x, mouse_y = mouse_position
+        mouse_x -= self.x                                               # делаем начало координат в центре героя
+        mouse_y -= self.y
+        angle = mouse_x / sqrt(mouse_x * mouse_x + mouse_y * mouse_y)   # вычисляем угол по координатам
+        # переводим из радиан в градусы
+        if mouse_y < 0:
+            self.angle = acos(angle) / pi * 180
+        if mouse_y > 0:
+            self.angle = 360 - acos(angle) / pi * 180
 
 
-class Weapons():
+class Weapons:
+    """
+    Класс, отвечающий за оружие главного героя
+    """
     def __init__(self, human):
         self.width = 4
         self.height = 4
         self.x = human.x + human.width
         self.y = human.y + human.height / 2 - self.height / 2
 
-
     def draw(self, human, sc):
         self.x = human.x + human.width
         self.y = human.y + human.height / 2 - self.height / 2
-        pygame.draw.rect(sc, RED, (self.x, self.y, self.width, self.height))
+        pg.draw.rect(sc, RED, (self.x, self.y, self.width, self.height))
 
 
 def run_game():
-    pygame.init()
-    screen = pygame.display.set_mode((WIDTH, HEIGHT))
-    pygame.display.set_caption(NAME)
+    """
+    Функция, отвечающая за запуск игры
+    """
+    pg.init()
+    screen = pg.display.set_mode((WIDTH, HEIGHT))   # главный экран игры
+    pg.display.set_caption(NAME)
 
-    human = Humans()  # создаем главного героя
-    pistol = Weapons(human)
+    human = Humans()                                # создаем главного героя
+    pistol = Weapons(human)                         # создаем оружие (пистолет)
+
+    # главный цикл игры
     while True:
-        events(human)
+        events(human)               # модуль, отвечающий за события в игре
 
-        screen.fill(BLACK)
+        screen.fill(BLACK)          # заливает экран черным цветом
 
-        human.draw(screen)  # должно вызываться в отдельном классе
-        pistol.draw(human, screen)
+        human.draw(screen)          # прорисовка главного героя
+        pistol.draw(human, screen)  # прорисовка оружия
 
-        pygame.display.flip()
+        pg.display.flip()
 
 
 run_game()

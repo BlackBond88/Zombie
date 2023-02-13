@@ -1,34 +1,35 @@
-import pygame
-import math
+import pygame as pg
 
 
 def events(human):
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
+    """
+    Функция, отвечающая за события в игре
+    human: класс главного героя
+    """
+    for event in pg.event.get():
+        # выход из игры
+        if event.type == pg.QUIT:
             exit()
-        elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_LEFT or event.key == pygame.K_a:
+        # события при нажатой клавише
+        elif event.type == pg.KEYDOWN:
+            if event.key == pg.K_LEFT or event.key == pg.K_a:
                 human.move_left = True
-            elif event.key == pygame.K_RIGHT or event.key == pygame.K_d:
+            elif event.key == pg.K_RIGHT or event.key == pg.K_d:
                 human.move_right = True
-            elif event.key == pygame.K_UP or event.key == pygame.K_w:
+            elif event.key == pg.K_UP or event.key == pg.K_w:
                 human.move_up = True
-            elif event.key == pygame.K_DOWN or event.key == pygame.K_s:
+            elif event.key == pg.K_DOWN or event.key == pg.K_s:
                 human.move_down = True
-        elif event.type == pygame.KEYUP:
-            if event.key == pygame.K_LEFT or event.key == pygame.K_a:
+        # события при отжатии клавиши
+        elif event.type == pg.KEYUP:
+            if event.key == pg.K_LEFT or event.key == pg.K_a:
                 human.move_left = False
-            elif event.key == pygame.K_RIGHT or event.key == pygame.K_d:
+            elif event.key == pg.K_RIGHT or event.key == pg.K_d:
                 human.move_right = False
-            elif event.key == pygame.K_UP or event.key == pygame.K_w:
+            elif event.key == pg.K_UP or event.key == pg.K_w:
                 human.move_up = False
-            elif event.key == pygame.K_DOWN or event.key == pygame.K_s:
+            elif event.key == pg.K_DOWN or event.key == pg.K_s:
                 human.move_down = False
-        elif event.type == pygame.MOUSEMOTION:
-
-            x, y = event.pos
-            x = x - human.x
-            y = - y + human.y
-            gr = x / math.sqrt(x*x + y*y)
-            gr = math.acos(gr) / math.pi * 180
-            human.gr = gr
+        # события при движении мыши
+        elif event.type == pg.MOUSEMOTION:
+            human.mouse_angle(event.pos)
