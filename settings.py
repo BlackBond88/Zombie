@@ -5,3 +5,6 @@ BLACK = (0, 0, 0)
 NAME = 'Zombies in the city'
 WIDTH = 1400
 HEIGHT = 900
+
+WIDTH_HUMAN = 60
+HEIGHT_HUMAN = 40
