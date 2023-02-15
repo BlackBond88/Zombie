@@ -39,7 +39,7 @@ class Humans:
         # отрисовывает поверхность в полученных координатах под углом (angle) к курсору
         # TODO https: // www.cyberforum.ru / python - pygame / thread2261270.html
         screen.blit(pg.transform.rotate(main_hero, self.angle), (self.x, self.y))
-        # проверка ветвления
+        # проверка ветвления номер два
 
     def mouse_angle(self, mouse_position):
         """
