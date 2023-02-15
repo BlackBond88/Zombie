@@ -21,7 +21,7 @@ def run_game():
         screen.fill(BLACK)          # заливает экран черным цветом
 
         human.draw(screen)          # прорисовка главного героя
-        pistol.draw(human, screen)  # прорисовка оружия
+        # pistol.draw(human, screen)  # прорисовка оружия
 
         pg.display.flip()
 

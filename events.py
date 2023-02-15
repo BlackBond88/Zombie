@@ -32,4 +32,4 @@ def events(human):
                 human.move_down = False
         # события при движении мыши
         elif event.type == pg.MOUSEMOTION:
-            human.mouse_angle(event.pos)
+            human.mouse_angle()

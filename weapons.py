@@ -15,4 +15,4 @@ class Weapons:
     def draw(self, human, sc):
         self.x = human.x + human.width
         self.y = human.y + human.height / 2 - self.height / 2
-        pg.draw.rect(sc, RED, (self.x, self.y, self.width, self.height))
+        pg.draw.rect(sc, RED, (self.x, self.y, self.width, self.height))    # TODO: дописать Класс оружия
