@@ -4,7 +4,6 @@ from weapons import *
 from humans import *
 
 
-
 def run_game():
     """
     Функция, отвечающая за запуск игры
@@ -16,7 +15,7 @@ def run_game():
     clock = pg.time.Clock()                         # скорость игры (FPS)
 
     my_mouse = Mouse('Images/cursor.png')           # создаем свой курсор мышки
-    human = Humans('Images/human.png')              # создаем главного героя
+    human = Humans('Images/human.png', 1)              # создаем главного героя
     pistol = Weapons(human)                         # создаем оружие (пистолет)
 
     # главный цикл игры

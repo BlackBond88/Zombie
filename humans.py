@@ -7,7 +7,7 @@ class Humans:
     """
     Класс, занимающийся главным героем
     """
-    def __init__(self, image_name):
+    def __init__(self, image_name, speed):
         self.x = WIDTH / 2              # координаты главного героя (ГГ) выравниваются по центру экрана игры
         self.y = HEIGHT / 2
         self.width = WIDTH_HUMAN        # размеры главного героя
@@ -18,6 +18,7 @@ class Humans:
         self.move_down = False
         self.angle = 0                  # угол между мышкой и положением главного героя
         self.image_human = pg.image.load(image_name)        # загружаем изображение героя
+        self.speed = speed
 
     def draw(self, screen):
         """
@@ -25,13 +26,13 @@ class Humans:
         screen: экран главной игры
         """
         if self.move_left:
-            self.x -= 1
+            self.x -= self.speed
         if self.move_right:
-            self.x += 1
+            self.x += self.speed
         if self.move_up:
-            self.y -= 1
+            self.y -= self.speed
         if self.move_down:
-            self.y += 1
+            self.y += self.speed
 
         # отрисовка главного героя
         self.mouse_angle()
