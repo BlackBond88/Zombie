@@ -7,7 +7,7 @@ class Humans:
     """
     Класс, занимающийся главным героем
     """
-    def __init__(self):
+    def __init__(self, image_name):
         self.x = WIDTH / 2              # координаты главного героя (ГГ) выравниваются по центру экрана игры
         self.y = HEIGHT / 2
         self.width = WIDTH_HUMAN        # размеры главного героя
@@ -17,6 +17,7 @@ class Humans:
         self.move_up = False
         self.move_down = False
         self.angle = 0                  # угол между мышкой и положением главного героя
+        self.image_human = pg.image.load(image_name)        # загружаем изображение героя
 
     def draw(self, screen):
         """
@@ -33,8 +34,8 @@ class Humans:
             self.y += 1
 
         # отрисовка главного героя
-        image_human = pg.image.load('Images/human.png')                         # TODO: вынести из Класса
-        image_human_rotate = pg.transform.rotate(image_human, self.angle)
+
+        image_human_rotate = pg.transform.rotate(self.image_human, self.angle)
         rect_human = image_human_rotate.get_rect(center=(self.x, self.y))
         screen.blit(image_human_rotate, rect_human)
 
