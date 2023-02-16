@@ -34,7 +34,7 @@ class Humans:
             self.y += 1
 
         # отрисовка главного героя
-
+        self.mouse_angle()
         image_human_rotate = pg.transform.rotate(self.image_human, self.angle)
         rect_human = image_human_rotate.get_rect(center=(self.x, self.y))
         screen.blit(image_human_rotate, rect_human)

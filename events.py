@@ -30,6 +30,3 @@ def events(human):
                 human.move_up = False
             elif event.key == pg.K_DOWN or event.key == pg.K_s:
                 human.move_down = False
-        # события при движении мыши
-        elif event.type == pg.MOUSEMOTION:
-            human.mouse_angle()
