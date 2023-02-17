@@ -1,5 +1,6 @@
 import pygame as pg
 from settings import *
+from bullets import *
 from math import pi, atan2
 
 
@@ -7,7 +8,7 @@ class Humans:
     """
     Класс, занимающийся главным героем
     """
-    def __init__(self, image_name, speed):
+    def __init__(self, image_name, speed, screen):
         self.x = WIDTH / 2              # координаты главного героя (ГГ) выравниваются по центру экрана игры
         self.y = HEIGHT / 2
         self.width = WIDTH_HUMAN        # размеры главного героя
@@ -19,8 +20,10 @@ class Humans:
         self.angle = 0                  # угол между мышкой и положением главного героя
         self.image_human = pg.image.load(image_name)        # загружаем изображение героя
         self.speed = speed
+        self.screen = screen
+        self.shots = False
 
-    def draw(self, screen):
+    def draw(self):
         """
         Функция, отвечающая за движение главного героя
         screen: экран главной игры
@@ -38,7 +41,18 @@ class Humans:
         self.mouse_angle()
         image_human_rotate = pg.transform.rotate(self.image_human, self.angle)
         rect_human = image_human_rotate.get_rect(center=(self.x, self.y))
-        screen.blit(image_human_rotate, rect_human)
+        self.screen.blit(image_human_rotate, rect_human)
+
+        if self.shots:
+            self.bullet.drow(self.screen)   # отрисовка пули
+
+
+    def shot(self):
+        """
+        Функция, которая создает пули
+        """
+        self.shots = True
+        self.bullet = Bullets(self)
 
     def mouse_angle(self):
         """

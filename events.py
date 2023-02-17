@@ -30,3 +30,5 @@ def events(human):
                 human.move_up = False
             elif event.key == pg.K_DOWN or event.key == pg.K_s:
                 human.move_down = False
+        if event.type == pg.MOUSEBUTTONDOWN:
+            human.shot()
