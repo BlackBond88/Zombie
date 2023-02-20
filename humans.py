@@ -6,7 +6,6 @@ class Humans:
     """
     Класс, занимающийся главным героем
     """
-
     def __init__(self, image_name, speed, screen):
         self.x = WIDTH / 2  # координаты главного героя (ГГ) выравниваются по центру экрана игры
         self.y = HEIGHT / 2
@@ -47,7 +46,7 @@ class Humans:
 
         if self.shots:
             for bullet in self.bullet_list:
-                bullet.drow(self.screen)  # отрисовка пули
+                bullet.draw(self.screen)  # отрисовка пули
 
     def shot(self):
         """
@@ -79,11 +78,11 @@ class Humans:
         self.angle = (180 / pi) * atan2(coord_x, coord_y) - 90
 
     def move_ban(self):
-        if self.x > WIDTH:
+        if self.x > WIDTH - self.width:
             self.move_right = False
-        if self.x < 0:
+        if self.x < self.width:
             self.move_left = False
-        if self.y > HEIGHT:
+        if self.y > HEIGHT - self.width:
             self.move_down = False
-        if self.y < 0:
+        if self.y < self.width:
             self.move_up = False

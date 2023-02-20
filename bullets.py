@@ -10,14 +10,14 @@ class Bullets:
     def __init__(self, human):
         self.angle = human.angle - 180
         # Пересчитываем координаты вылета пули относительно положения главного героя
-        self.x = human.x - 59 * cos(self.angle * pi / 180) - 12 * cos(self.angle * pi / 180 - 90)
-        self.y = human.y + 59 * sin(self.angle * pi / 180) + 12 * sin(self.angle * pi / 180 - 90)
+        self.x = human.x - 59 * cos(self.angle * pi / 180)
+        self.y = human.y + 59 * sin(self.angle * pi / 180)
 
         self.bullet_image = pg.image.load('Images/bullet.png')
         self.delete = False
         self.human_class = human
 
-    def drow(self, screen):
+    def draw(self, screen):
         """
         Функция прорисовки и движения пули
         """

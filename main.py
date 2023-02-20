@@ -2,6 +2,7 @@ from cursor import *
 from events import *
 from weapons import *
 from humans import *
+from zombie import *
 
 
 def run_game():
@@ -16,6 +17,7 @@ def run_game():
 
     my_mouse = Mouse('Images/cursor.png')               # создаем свой курсор мышки
     human = Humans('Images/human.png', HUMAN_SPEED, screen)     # создаем главного героя
+    zombie = Zombies(human, 0, 0)
     pistol = Weapons(human)                             # создаем оружие (пистолет)
 
     # главный цикл игры
@@ -26,8 +28,10 @@ def run_game():
 
         screen.blit(background_image, (0, 0))       # отрисовывается фон игры
 
+        zombie.draw(screen)
         my_mouse.draw(screen)       # прорисовка курсора
         human.draw()                # прорисовка главного героя
+
         # pistol.draw(human, screen)  # прорисовка оружия
 
         pg.display.flip()
