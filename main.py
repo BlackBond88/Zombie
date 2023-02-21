@@ -3,7 +3,6 @@ from events import *
 # from weapons import *
 from humans import *
 from zombie import *
-import random
 
 
 def run_game():
@@ -22,9 +21,7 @@ def run_game():
 
     zombies = []
     for i in range(10):
-        x_zombi = random.random() * WIDTH
-        y_zombi = random.random() * HEIGHT
-        zombie = Zombies(x_zombi, y_zombi)
+        zombie = Zombies()
         zombies.append(zombie)
 
     # pistol = Weapons(human)                             # создаем оружие (пистолет)

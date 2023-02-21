@@ -1,6 +1,6 @@
 from bullets import *
 from draw import *
-from math import pi, atan2
+from count import *
 
 
 class Humans:
@@ -40,7 +40,10 @@ class Humans:
             self.y += self.speed
 
         # отрисовка главного героя
-        self.mouse_angle()
+        mouse_x, mouse_y = pg.mouse.get_pos()
+
+        self.angle = count_angle(mouse_x, mouse_y, self.x, self.y)
+
         self.draw.rotation(self.x, self.y, self.image_human, self.angle)
 
         if self.shots:
@@ -64,17 +67,6 @@ class Humans:
             if bullet.delete:
                 del self.bullet_list[i]
             i += 1
-
-    def mouse_angle(self):
-        """
-        Функция, которая высчитывает угол между курсором и главным героем
-        """
-        mouse_x, mouse_y = pg.mouse.get_pos()
-        # делаем начало координат в центре героя
-        coord_x = mouse_x - self.x
-        coord_y = mouse_y - self.y
-        # вычисляем угол между точками в градусах
-        self.angle = (180 / pi) * atan2(coord_x, coord_y) - 90
 
     def move_ban(self):
         if self.x > WIDTH - self.size:
