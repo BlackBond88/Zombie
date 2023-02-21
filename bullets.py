@@ -9,6 +9,7 @@ class Bullets:
     """
     def __init__(self, human):
         self.angle = human.angle - 180
+
         # Пересчитываем координаты вылета пули относительно положения главного героя
         self.x = human.x - 59 * cos(self.angle * pi / 180)
         self.y = human.y + 59 * sin(self.angle * pi / 180)
@@ -21,7 +22,7 @@ class Bullets:
         """
         Функция прорисовки и движения пули
         """
-        self.human_class.draw_human.draw(self.x, self.y, self.bullet_image, self.angle)
+        self.human_class.draw.rotation(self.x, self.y, self.bullet_image, self.angle)
 
         self.x -= BULLET_SPEED * cos(self.angle * pi / 180)
         self.y += BULLET_SPEED * sin(self.angle * pi / 180)

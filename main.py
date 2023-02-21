@@ -16,15 +16,15 @@ def run_game():
     pg.display.set_caption(NAME)
     clock = pg.time.Clock()                         # скорость игры (FPS)
 
-    my_mouse = Mouse('Images/cursor.png')               # создаем свой курсор мышки
+    my_mouse = Mouse(screen, 'Images/cursor.png')               # создаем свой курсор мышки
     draw = Draw(screen)
     human = Humans('Images/human.png', HUMAN_SPEED, screen, draw)     # создаем главного героя
 
     zombies = []
-    for i in range(20):
+    for i in range(10):
         x_zombi = random.random() * WIDTH
         y_zombi = random.random() * HEIGHT
-        zombie = Zombies(human, x_zombi, y_zombi)
+        zombie = Zombies(x_zombi, y_zombi)
         zombies.append(zombie)
 
     # pistol = Weapons(human)                             # создаем оружие (пистолет)
@@ -38,10 +38,10 @@ def run_game():
         screen.blit(background_image, (0, 0))       # отрисовывается фон игры
 
         for zombie in zombies:
-            zombie.draw()
+            zombie.move(human.x, human.y, draw)
 
-        my_mouse.draw(screen)       # прорисовка курсора
-        human.draw()                # прорисовка главного героя
+        my_mouse.draw()       # прорисовка курсора
+        human.move()                # прорисовка главного героя
 
         # pistol.draw(human, screen)  # прорисовка оружия
 

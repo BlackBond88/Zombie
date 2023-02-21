@@ -7,24 +7,19 @@ class Zombies:
     """
     Класс, отвечающий за зомби в игре
     """
-    def __init__(self, human, x, y):
+    def __init__(self, x, y):
         self.x = x
         self.y = y
-        self.human_class = human
-        self.angle = human.angle
         self.zombie_image = pg.image.load('Images/zombie.png')
 
-    def draw(self):
-        self.move()
-        self.human_class.draw_human.draw(self.x, self.y, self.zombie_image, self.angle)
-        self.x += ZOMBIE_SPEED * cos(self.angle * pi / 180)
-        self.y -= ZOMBIE_SPEED * sin(self.angle * pi / 180)
+    def move(self, human_x, human_y, draw):
+        # вычисляем угол между главным героем и зомби
+        coord_x = human_x - self.x
+        coord_y = human_y - self.y
+        angle = (180 / pi) * atan2(coord_x, coord_y) - 90
 
-    def move(self):
-        x = self.human_class.x
-        y = self.human_class.y
-        # делаем начало координат в центре героя
-        coord_x = x - self.x
-        coord_y = y - self.y
-        # вычисляем угол между точками в градусах
-        self.angle = (180 / pi) * atan2(coord_x, coord_y) - 90
+        draw.rotation(self.x, self.y, self.zombie_image, angle)     # отрисовываем зомби
+
+        # двигаем замби к главному герою
+        self.x += ZOMBIE_SPEED * cos(angle * pi / 180)
+        self.y -= ZOMBIE_SPEED * sin(angle * pi / 180)

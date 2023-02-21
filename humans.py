@@ -7,11 +7,10 @@ class Humans:
     """
     Класс, занимающийся главным героем
     """
-    def __init__(self, image_name, speed, screen, draw):
+    def __init__(self, image_name, speed, screen, human_draw):
         self.x = WIDTH / 2  # координаты главного героя (ГГ) выравниваются по центру экрана игры
         self.y = HEIGHT / 2
-        self.width = WIDTH_HUMAN  # размеры главного героя
-        self.height = HEIGHT_HUMAN
+        self.size = HUMAN_SIZE  # размеры главного героя
         self.move_left = False  # параметр для движения главного героя при зажатой кнопке
         self.move_right = False
         self.move_up = False
@@ -22,9 +21,9 @@ class Humans:
         self.screen = screen
         self.shots = False
         self.bullet_list = []
-        self.draw_human = draw
+        self.draw = human_draw
 
-    def draw(self):
+    def move(self):
         """
         Функция, отвечающая за движение главного героя
         screen: экран главной игры
@@ -42,7 +41,7 @@ class Humans:
 
         # отрисовка главного героя
         self.mouse_angle()
-        self.draw_human.draw(self.x, self.y, self.image_human, self.angle)
+        self.draw.rotation(self.x, self.y, self.image_human, self.angle)
 
         if self.shots:
             for bullet in self.bullet_list:
@@ -78,11 +77,11 @@ class Humans:
         self.angle = (180 / pi) * atan2(coord_x, coord_y) - 90
 
     def move_ban(self):
-        if self.x > WIDTH - self.width:
+        if self.x > WIDTH - self.size:
             self.move_right = False
-        if self.x < self.width:
+        if self.x < self.size:
             self.move_left = False
-        if self.y > HEIGHT - self.width:
+        if self.y > HEIGHT - self.size:
             self.move_down = False
-        if self.y < self.width:
+        if self.y < self.size:
             self.move_up = False
