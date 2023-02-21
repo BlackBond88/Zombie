@@ -20,25 +20,28 @@ def run_game():
     human = Humans('Images/human.png', HUMAN_SPEED, screen, draw)     # создаем главного героя
 
     zombies = []
-    for i in range(10):
+    for i in range(1):
         zombie = Zombies()
         zombies.append(zombie)
 
     # pistol = Weapons(human)                             # создаем оружие (пистолет)
 
     # главный цикл игры
-    while True:
+    game_over = False
+    while not game_over:
         clock.tick(FPS)
 
         events(human)               # модуль, отвечающий за события в игре
 
         screen.blit(background_image, (0, 0))       # отрисовывается фон игры
 
+        human.move()                # прорисовка главного героя
+
         for zombie in zombies:
-            zombie.move(human.x, human.y, draw)
+            zombie.move(human.x, human.y, draw, human)
 
         my_mouse.draw()       # прорисовка курсора
-        human.move()                # прорисовка главного героя
+
 
         # pistol.draw(human, screen)  # прорисовка оружия
 

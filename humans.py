@@ -22,6 +22,7 @@ class Humans:
         self.shots = False
         self.bullet_list = []
         self.draw = human_draw
+        self.rect = 0
 
     def move(self):
         """
@@ -44,7 +45,8 @@ class Humans:
 
         self.angle = count_angle(mouse_x, mouse_y, self.x, self.y)
 
-        self.draw.rotation(self.x, self.y, self.image_human, self.angle)
+        self.rect = self.draw.rotation(self.x, self.y, HUMAN_WIDTH, HUMAN_HIEGHT, self.image_human, self.angle)
+        print(self.rect)
 
         if self.shots:
             for bullet in self.bullet_list:
