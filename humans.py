@@ -1,4 +1,5 @@
 from bullets import *
+from draw import *
 from math import pi, atan2
 
 
@@ -6,7 +7,7 @@ class Humans:
     """
     Класс, занимающийся главным героем
     """
-    def __init__(self, image_name, speed, screen):
+    def __init__(self, image_name, speed, screen, draw):
         self.x = WIDTH / 2  # координаты главного героя (ГГ) выравниваются по центру экрана игры
         self.y = HEIGHT / 2
         self.width = WIDTH_HUMAN  # размеры главного героя
@@ -21,6 +22,7 @@ class Humans:
         self.screen = screen
         self.shots = False
         self.bullet_list = []
+        self.draw_human = draw
 
     def draw(self):
         """
@@ -40,13 +42,11 @@ class Humans:
 
         # отрисовка главного героя
         self.mouse_angle()
-        image_human_rotate = pg.transform.rotate(self.image_human, self.angle)
-        rect_human = image_human_rotate.get_rect(center=(self.x, self.y))
-        self.screen.blit(image_human_rotate, rect_human)
+        self.draw_human.draw(self.x, self.y, self.image_human, self.angle)
 
         if self.shots:
             for bullet in self.bullet_list:
-                bullet.draw(self.screen)  # отрисовка пули
+                bullet.draw()  # отрисовка пули
 
     def shot(self):
         """

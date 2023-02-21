@@ -1,7 +1,7 @@
 import pygame as pg
 
 
-class Mouse():
+class Mouse:
     """
     Класс, занимающийся курсором мыши
     """

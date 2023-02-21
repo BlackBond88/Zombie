@@ -14,11 +14,9 @@ class Zombies:
         self.angle = human.angle
         self.zombie_image = pg.image.load('Images/zombie.png')
 
-    def draw(self, screen):
+    def draw(self):
         self.move()
-        zombie_image_rotate = pg.transform.rotate(self.zombie_image, self.angle)  # поворачиваем оригинал
-        rect_zombie = zombie_image_rotate.get_rect(center=(self.x, self.y))  # область с координатами в центре
-        screen.blit(zombie_image_rotate, rect_zombie)
+        self.human_class.draw_human.draw(self.x, self.y, self.zombie_image, self.angle)
         self.x += ZOMBIE_SPEED * cos(self.angle * pi / 180)
         self.y -= ZOMBIE_SPEED * sin(self.angle * pi / 180)
 

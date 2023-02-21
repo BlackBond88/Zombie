@@ -1,6 +1,6 @@
 from cursor import *
 from events import *
-from weapons import *
+# from weapons import *
 from humans import *
 from zombie import *
 import random
@@ -17,7 +17,8 @@ def run_game():
     clock = pg.time.Clock()                         # скорость игры (FPS)
 
     my_mouse = Mouse('Images/cursor.png')               # создаем свой курсор мышки
-    human = Humans('Images/human.png', HUMAN_SPEED, screen)     # создаем главного героя
+    draw = Draw(screen)
+    human = Humans('Images/human.png', HUMAN_SPEED, screen, draw)     # создаем главного героя
 
     zombies = []
     for i in range(20):
@@ -26,7 +27,7 @@ def run_game():
         zombie = Zombies(human, x_zombi, y_zombi)
         zombies.append(zombie)
 
-    pistol = Weapons(human)                             # создаем оружие (пистолет)
+    # pistol = Weapons(human)                             # создаем оружие (пистолет)
 
     # главный цикл игры
     while True:
@@ -37,7 +38,7 @@ def run_game():
         screen.blit(background_image, (0, 0))       # отрисовывается фон игры
 
         for zombie in zombies:
-            zombie.draw(screen)
+            zombie.draw()
 
         my_mouse.draw(screen)       # прорисовка курсора
         human.draw()                # прорисовка главного героя
