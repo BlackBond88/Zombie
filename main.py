@@ -20,7 +20,7 @@ def run_game():
     human = Humans('Images/human.png', HUMAN_SPEED, screen, draw)     # создаем главного героя
 
     zombies = []
-    for i in range(1):
+    for i in range(0):
         zombie = Zombies()
         zombies.append(zombie)
 
