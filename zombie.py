@@ -16,19 +16,13 @@ class Zombies:
         self.size = ZOMBIE_SIZE
         self.zombie_image = pg.image.load('Images/zombie.png')
 
-    def move(self, draw, human):
+    def move(self, draw, human_x, human_y):
         # вычисляем угол между главным героем и зомби
-        angle = count_angle(human.x, human.y, self.x, self.y)
+        angle = count_angle(human_x, human_y, self.x, self.y)
 
         # отрисовка зомби
-        rect = draw.rotation(self.x, self.y, self.size, self.zombie_image, angle)
+        self.rect = draw.rotation(self.x, self.y, self.size, self.zombie_image, angle)
 
         # двигаем замби к главному герою
         self.x += ZOMBIE_SPEED * cos(angle * pi / 180)
         self.y -= ZOMBIE_SPEED * sin(angle * pi / 180)
-
-        # проверяем соприкосновение зомби с главным героем
-        if rect.colliderect(human.rect):
-            dist = count_distance(self.x, self.y, human.x, human.y)
-            if dist <= self.size + human.size:      # проверяем по радиусу от центров объектов
-                exit()

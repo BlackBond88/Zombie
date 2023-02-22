@@ -78,3 +78,11 @@ class Humans:
             self.move_down = False
         if self.y < self.size:
             self.move_up = False
+
+    def zombie_attack_test(self, zombies):
+        # проверяем соприкосновение зомби с главным героем
+        for zombie in zombies:
+            if self.rect.colliderect(zombie.rect):
+                dist = count_distance(self.x, self.y, zombie.x, zombie.y)
+                if dist <= self.size + zombie.size:      # проверяем по радиусу от центров объектов
+                   exit()

@@ -20,7 +20,7 @@ def run_game():
     human = Humans('Images/human.png', HUMAN_SPEED, screen, draw)     # создаем главного героя
 
     zombies = []
-    for i in range(1):
+    for i in range(ZOMBIE_NUMBER):
         zombie = Zombies()
         zombies.append(zombie)
 
@@ -38,7 +38,9 @@ def run_game():
         human.move()                # прорисовка главного героя
 
         for zombie in zombies:
-            zombie.move(draw, human)
+            zombie.move(draw, human.x, human.y)
+
+        human.zombie_attack_test(zombies)
 
         my_mouse.draw()       # прорисовка курсора
 
