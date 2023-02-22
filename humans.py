@@ -7,7 +7,8 @@ class Humans:
     """
     Класс, занимающийся главным героем
     """
-    def __init__(self, image_name, speed, screen, human_draw):
+
+    def __init__(self, image_name, speed, screen, human_draw, zombies):
         self.x = WIDTH / 2  # координаты главного героя (ГГ) выравниваются по центру экрана игры
         self.y = HEIGHT / 2
         self.size = HUMAN_SIZE  # размеры главного героя
@@ -23,6 +24,7 @@ class Humans:
         self.bullet_list = []
         self.draw = human_draw
         self.rect = 0
+        self.zombies = zombies
 
     def move(self):
         """
@@ -47,9 +49,13 @@ class Humans:
 
         self.rect = self.draw.rotation(self.x, self.y, self.size, self.image_human, self.angle)
 
+        self.zombie_attack_test()
+
         if self.shots:
             for bullet in self.bullet_list:
                 bullet.draw()  # отрисовка пули
+                # проверяем, попала ли пуля в зомби
+                bullet.killing_zombie_test(self.zombies)
 
     def shot(self):
         """
@@ -79,10 +85,10 @@ class Humans:
         if self.y < self.size:
             self.move_up = False
 
-    def zombie_attack_test(self, zombies):
+    def zombie_attack_test(self):
         # проверяем соприкосновение зомби с главным героем
-        for zombie in zombies:
+        for zombie in self.zombies:
             if self.rect.colliderect(zombie.rect):
                 dist = count_distance(self.x, self.y, zombie.x, zombie.y)
-                if dist <= self.size + zombie.size:      # проверяем по радиусу от центров объектов
-                   exit()
+                if dist <= self.size + zombie.size:  # проверяем по радиусу от центров объектов
+                    exit()

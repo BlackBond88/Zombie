@@ -17,12 +17,13 @@ def run_game():
 
     my_mouse = Mouse(screen, 'Images/cursor.png')               # создаем свой курсор мышки
     draw = Draw(screen)
-    human = Humans('Images/human.png', HUMAN_SPEED, screen, draw)     # создаем главного героя
 
     zombies = []
     for i in range(ZOMBIE_NUMBER):
         zombie = Zombies()
         zombies.append(zombie)
+
+    human = Humans('Images/human.png', HUMAN_SPEED, screen, draw, zombies)  # создаем главного героя
 
     # pistol = Weapons(human)                             # создаем оружие (пистолет)
 
@@ -35,12 +36,10 @@ def run_game():
 
         screen.blit(background_image, (0, 0))       # отрисовывается фон игры
 
-        human.move()                # прорисовка главного героя
-
         for zombie in zombies:
             zombie.move(draw, human.x, human.y)
 
-        human.zombie_attack_test(zombies)
+        human.move()                # прорисовка главного героя
 
         my_mouse.draw()       # прорисовка курсора
 

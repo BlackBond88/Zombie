@@ -15,6 +15,7 @@ class Zombies:
         self.y = random.random() * HEIGHT
         self.size = ZOMBIE_SIZE
         self.zombie_image = pg.image.load('Images/zombie.png')
+        self.rect = 0
 
     def move(self, draw, human_x, human_y):
         # вычисляем угол между главным героем и зомби
