@@ -13,7 +13,7 @@ class Bullets:
         # Пересчитываем координаты вылета пули относительно положения главного героя
         self.x = human.x - 59 * cos(self.angle * pi / 180)
         self.y = human.y + 59 * sin(self.angle * pi / 180)
-
+        self.size = BULLET_SIZE
         self.bullet_image = pg.image.load('Images/bullet.png')
         self.delete = False
         self.human_class = human
@@ -22,7 +22,7 @@ class Bullets:
         """
         Функция прорисовки и движения пули
         """
-        self.human_class.draw.rotation(self.x, self.y, BULLET_WIDTH, BULLET_HIEGHT, self.bullet_image, self.angle)
+        self.human_class.draw.rotation(self.x, self.y, self.size, self.bullet_image, self.angle)
 
         self.x -= BULLET_SPEED * cos(self.angle * pi / 180)
         self.y += BULLET_SPEED * sin(self.angle * pi / 180)
