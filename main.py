@@ -29,10 +29,11 @@ def run_game():
 
     # главный цикл игры
     game_over = False
+    game_pause = False
     while not game_over:
         clock.tick(FPS)
 
-        events(human)               # модуль, отвечающий за события в игре
+        game_pause = events(human, game_pause)               # модуль, отвечающий за события в игре
 
         screen.blit(background_image, (0, 0))       # отрисовывается фон игры
 
@@ -41,8 +42,22 @@ def run_game():
 
         human.move()                # прорисовка главного героя
 
-        my_mouse.draw()       # прорисовка курсора
+        # цикл, когда в игре нажата пауза
+        while game_pause:
+            draw.pause_text()
+            pg.display.flip()
+            for event in pg.event.get():
+                # выход из игры
+                if event.type == pg.QUIT:
+                    exit()
+                if event.type == pg.KEYDOWN:
+                    if event.key == pg.K_p:
+                        game_pause = False
+                events_keys(event, human)
+                if event.type == pg.MOUSEBUTTONDOWN:
+                    human.shot()
 
+        my_mouse.draw()       # прорисовка курсора
         # pistol.draw(human, screen)  # прорисовка оружия
 
         pg.display.flip()

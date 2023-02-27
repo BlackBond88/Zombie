@@ -24,7 +24,7 @@ class Bullets:
         """
         Функция прорисовки и движения пули
         """
-        self.rect = self.human_class.draw.rotation(self.x, self.y, self.size, self.bullet_image, self.angle)
+        self.rect = self.human_class.draw.rotation(self.x, self.y, self.bullet_image, self.angle)
 
         self.x -= BULLET_SPEED * cos(self.angle * pi / 180)
         self.y += BULLET_SPEED * sin(self.angle * pi / 180)

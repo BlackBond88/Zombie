@@ -1,5 +1,5 @@
 import pygame as pg
-from math import pi, cos, sin
+from settings import *
 
 
 class Draw:
@@ -9,7 +9,7 @@ class Draw:
     def __init__(self, screen):
         self.screen = screen
 
-    def rotation(self, x, y, radius, image_original, angle):
+    def rotation(self, x, y, image_original, angle):
         """
         Поворачиваем картинку и отображаем ее
         """
@@ -18,6 +18,15 @@ class Draw:
 
         self.screen.blit(image_rotate, rect)
 
-        # pg.draw.circle(self.screen, (255, 0, 0), (x, y), radius, 3)
+        # pg.draw.circle(self.screen, (255, 0, 0), (x, y), 4, 3)
 
         return rect
+
+    def pause_text(self):
+        base_font = pg.font.Font(None, 206)
+        text = base_font.render('PAUSE', True, RED)
+
+        text_rect = text.get_rect()
+        text_rect.centerx = WIDTH // 2
+        text_rect.y = HEIGHT * 0.4
+        self.screen.blit(text, text_rect)

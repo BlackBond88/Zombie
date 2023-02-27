@@ -1,6 +1,7 @@
 from bullets import *
 from draw import *
 from count import *
+import time
 
 
 class Humans:
@@ -47,7 +48,7 @@ class Humans:
 
         self.angle = count_angle(mouse_x, mouse_y, self.x, self.y)
 
-        self.rect = self.draw.rotation(self.x, self.y, self.size, self.image_human, self.angle)
+        self.rect = self.draw.rotation(self.x, self.y, self.image_human, self.angle)
 
         self.zombie_attack_test()
 
@@ -91,4 +92,5 @@ class Humans:
             if self.rect.colliderect(zombie.rect):
                 dist = count_distance(self.x, self.y, zombie.x, zombie.y)
                 if dist <= self.size + zombie.size:  # проверяем по радиусу от центров объектов
+                    time.sleep(1)
                     exit()
