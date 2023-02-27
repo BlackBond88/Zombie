@@ -30,3 +30,13 @@ class Draw:
         text_rect.y = HEIGHT * 0.4
         self.screen.blit(text, text_rect)
         pg.display.flip()
+
+    def health_bar(self, x, y, size, health_all, health):
+        health_bar_width = 80
+        health_bar_height = 6
+        health_bar_thick = 2
+        x -= health_bar_width / 2
+        y -= size + 20
+        health_filled = health_bar_width / health_all * health
+        pg.draw.rect(self.screen, HEALTH_COLOR, (x, y, health_bar_width, health_bar_height), health_bar_thick)
+        pg.draw.rect(self.screen, HEALTH_COLOR, (x, y, health_filled, health_bar_height))

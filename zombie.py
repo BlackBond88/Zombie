@@ -15,6 +15,8 @@ class Zombies:
         self.y = random.random() * HEIGHT
         self.size = ZOMBIE_SIZE
         self.zombie_image = pg.image.load('Images/zombie.png')
+        self.health_all = 100
+        self.health = 100
         self.rect = 0
 
     def move(self, draw, human_x, human_y):
@@ -23,6 +25,9 @@ class Zombies:
 
         # отрисовка зомби
         self.rect = draw.rotation(self.x, self.y, self.zombie_image, angle)
+
+        # отрисовка здоровья зомби
+        draw.health_bar(self.x, self.y, self.size, self.health_all, self.health)
 
         # двигаем замби к главному герою
         self.x += ZOMBIE_SPEED * cos(angle * pi / 180)

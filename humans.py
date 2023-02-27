@@ -8,7 +8,6 @@ class Humans:
     """
     Класс, занимающийся главным героем
     """
-
     def __init__(self, image_name, speed, screen, human_draw, zombies):
         self.x = WIDTH / 2  # координаты главного героя (ГГ) выравниваются по центру экрана игры
         self.y = HEIGHT / 2
@@ -17,14 +16,14 @@ class Humans:
         self.move_right = False
         self.move_up = False
         self.move_down = False
-        self.angle = 0  # угол между мышкой и положением главного героя
         self.image_human = pg.image.load(image_name)  # загружаем изображение героя
         self.speed = speed
         self.screen = screen
         self.shots = False
+        self.rect = 0
+        self.angle = 0
         self.bullet_list = []
         self.draw = human_draw
-        self.rect = 0
         self.zombies = zombies
 
     def move(self):

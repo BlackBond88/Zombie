@@ -1,5 +1,6 @@
 WHITE = (254, 254, 254)
 RED = (255, 0, 0)
+HEALTH_COLOR = (178, 34, 34)
 BLACK = (0, 0, 0)
 
 NAME = 'Zombies in the city'
@@ -15,4 +16,4 @@ BULLET_SIZE = 5
 
 ZOMBIE_SPEED = 0.5
 ZOMBIE_SIZE = 25
-ZOMBIE_NUMBER = 5
+ZOMBIE_NUMBER = 40

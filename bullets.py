@@ -2,6 +2,7 @@ import pygame as pg
 from settings import *
 from math import cos, sin
 from count import *
+import random
 
 
 class Bullets:
@@ -19,6 +20,7 @@ class Bullets:
         self.delete = False
         self.human_class = human
         self.rect = 0
+        self.damage = random.randrange(10, 60)
 
     def draw(self):
         """
@@ -41,12 +43,15 @@ class Bullets:
 
     def killing_zombie_test(self, zombies):
         # проверяем попадает ли пуля в зомби
+
         i = 0
         for zombie in zombies:
             if self.rect.colliderect(zombie.rect):
                 dist = count_distance(self.x, self.y, zombie.x, zombie.y)
                 if dist <= self.size + zombie.size:  # проверяем по радиусу от центров объектов
-                    del zombies[i]
+                    zombie.health -= self.damage
+                    if zombie.health <= 0:
+                        del zombies[i]
                     self.delete = True
                     self.human_class.delete_bullet()
             i += 1
