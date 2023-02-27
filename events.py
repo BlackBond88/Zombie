@@ -11,12 +11,13 @@ def events(human, pause):
         if event.type == pg.QUIT:
             exit()
         if event.type == pg.KEYDOWN:
-            if event.key == pg.K_p:
+            if event.key == pg.K_p or event.key == pg.K_ESCAPE:
                 pause = not pause
         events_keys(event, human)
 
         if event.type == pg.MOUSEBUTTONDOWN:
-            human.shot()
+            if event.button == 1:
+                human.shot()
     return pause
 
 

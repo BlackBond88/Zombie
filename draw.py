@@ -22,11 +22,11 @@ class Draw:
 
         return rect
 
-    def pause_text(self):
-        base_font = pg.font.Font(None, 206)
-        text = base_font.render('PAUSE', True, RED)
-
+    def writes_text(self, text):
+        temp_font = pg.font.Font(None, 206)
+        text = temp_font.render(text, True, RED)
         text_rect = text.get_rect()
         text_rect.centerx = WIDTH // 2
         text_rect.y = HEIGHT * 0.4
         self.screen.blit(text, text_rect)
+        pg.display.flip()

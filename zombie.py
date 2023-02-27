@@ -19,11 +19,11 @@ class Zombies:
 
     def move(self, draw, human_x, human_y):
         # вычисляем угол между главным героем и зомби
-        self.angle = count_angle(human_x, human_y, self.x, self.y)
+        angle = count_angle(human_x, human_y, self.x, self.y)
 
         # отрисовка зомби
-        self.rect = draw.rotation(self.x, self.y, self.zombie_image, self.angle)
+        self.rect = draw.rotation(self.x, self.y, self.zombie_image, angle)
 
         # двигаем замби к главному герою
-        self.x += ZOMBIE_SPEED * cos(self.angle * pi / 180)
-        self.y -= ZOMBIE_SPEED * sin(self.angle * pi / 180)
+        self.x += ZOMBIE_SPEED * cos(angle * pi / 180)
+        self.y -= ZOMBIE_SPEED * sin(angle * pi / 180)

@@ -32,9 +32,7 @@ def run_game():
     game_pause = False
     while not game_over:
         clock.tick(FPS)
-
         game_pause = events(human, game_pause)               # модуль, отвечающий за события в игре
-
         screen.blit(background_image, (0, 0))       # отрисовывается фон игры
 
         for zombie in zombies:
@@ -44,18 +42,15 @@ def run_game():
 
         # цикл, когда в игре нажата пауза
         while game_pause:
-            draw.pause_text()
-            pg.display.flip()
+            draw.writes_text('Pause')
             for event in pg.event.get():
                 # выход из игры
                 if event.type == pg.QUIT:
                     exit()
                 if event.type == pg.KEYDOWN:
-                    if event.key == pg.K_p:
+                    if event.key == pg.K_p or event.key == pg.K_ESCAPE:
                         game_pause = False
                 events_keys(event, human)
-                if event.type == pg.MOUSEBUTTONDOWN:
-                    human.shot()
 
         my_mouse.draw()       # прорисовка курсора
         # pistol.draw(human, screen)  # прорисовка оружия

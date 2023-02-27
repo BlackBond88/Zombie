@@ -92,5 +92,6 @@ class Humans:
             if self.rect.colliderect(zombie.rect):
                 dist = count_distance(self.x, self.y, zombie.x, zombie.y)
                 if dist <= self.size + zombie.size:  # проверяем по радиусу от центров объектов
-                    time.sleep(1)
+                    self.draw.writes_text('YOU LOSE')
+                    time.sleep(2)
                     exit()
