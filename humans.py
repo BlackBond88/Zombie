@@ -8,7 +8,7 @@ class Humans:
     """
     Класс, занимающийся главным героем
     """
-    def __init__(self, image_name, speed, screen, human_draw, zombies):
+    def __init__(self, image_names, speed, screen, human_draw, zombies):
         self.x = WIDTH / 2  # координаты главного героя (ГГ) выравниваются по центру экрана игры
         self.y = HEIGHT / 2
         self.size = HUMAN_SIZE  # размеры главного героя
@@ -16,7 +16,6 @@ class Humans:
         self.move_right = False
         self.move_up = False
         self.move_down = False
-        self.image_human = pg.image.load(image_name)  # загружаем изображение героя
         self.speed = speed
         self.screen = screen
         self.shots = False
@@ -25,6 +24,15 @@ class Humans:
         self.bullet_list = []
         self.draw = human_draw
         self.zombies = zombies
+        self.image_humans = []
+        self.i = 0
+
+        a = 2.8     # TODO
+        for image_name in image_names:
+            image_human = pg.image.load(image_name).convert_alpha()
+            image_human = pg.transform.scale(image_human, (image_human.get_width() // a, image_human.get_height() // a))
+            self.image_humans.append(image_human)
+
 
     def move(self):
         """
@@ -47,7 +55,14 @@ class Humans:
 
         self.angle = count_angle(mouse_x, mouse_y, self.x, self.y)
 
-        self.rect = self.draw.rotation(self.x, self.y, self.image_human, self.angle)
+        n = 10
+        self.rect = self.draw.rotation(self.x, self.y, self.image_humans[self.i // n], self.angle)
+
+        if self.i == 18 * n:
+            self.i = 0
+        else:
+            self.i += 1
+
 
         self.zombie_attack_test()
 
@@ -87,6 +102,7 @@ class Humans:
 
     def zombie_attack_test(self):
         # проверяем соприкосновение зомби с главным героем
+        pass
         for zombie in self.zombies:
             if self.rect.colliderect(zombie.rect):
                 dist = count_distance(self.x, self.y, zombie.x, zombie.y)

@@ -16,7 +16,7 @@ class Bullets:
         self.x = human.x - 59 * cos(self.angle * pi / 180)
         self.y = human.y + 59 * sin(self.angle * pi / 180)
         self.size = BULLET_SIZE
-        self.bullet_image = pg.image.load('Images/bullet.png')
+        self.bullet_image = pg.image.load('Images/bullet.png').convert_alpha()
         self.delete = False
         self.human_class = human
         self.rect = 0

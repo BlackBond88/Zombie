@@ -6,7 +6,7 @@ class Mouse:
     Класс, занимающийся курсором мыши
     """
     def __init__(self, screen, image_name):
-        self.image_cursor = pg.image.load(image_name)
+        self.image_cursor = pg.image.load(image_name).convert_alpha()
         self.screen = screen
 
     def draw(self):

@@ -14,7 +14,7 @@ class Zombies:
         self.x = random.random() * WIDTH
         self.y = random.random() * HEIGHT
         self.size = ZOMBIE_SIZE
-        self.zombie_image = pg.image.load('Images/zombie.png')
+        self.zombie_image = pg.image.load('Images/zombie.png').convert_alpha()
         self.health_all = 100
         self.health = 100
         self.rect = 0

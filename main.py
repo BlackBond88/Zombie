@@ -23,7 +23,14 @@ def run_game():
         zombie = Zombies()
         zombies.append(zombie)
 
-    human = Humans('Images/human.png', HUMAN_SPEED, screen, draw, zombies)  # создаем главного героя
+    # human_image_name = 'Images/human.png'
+
+    human_image_names = []
+    for i in range(19):
+        name = 'Images/Top_Down_Survivor/rifle/idle/survivor-idle_rifle_' + str(i) + '.png'
+        human_image_names.append(name)
+
+    human = Humans(human_image_names, HUMAN_SPEED, screen, draw, zombies)  # создаем главного героя
 
     # pistol = Weapons(human)                             # создаем оружие (пистолет)
 
