@@ -1,6 +1,7 @@
 from bullets import *
 from draw import *
 from count import *
+from load import *
 import time
 
 
@@ -8,7 +9,7 @@ class Humans:
     """
     Класс, занимающийся главным героем
     """
-    def __init__(self, image_names, speed, screen, human_draw, zombies):
+    def __init__(self, speed, screen, human_draw, zombies):
         self.x = WIDTH / 2  # координаты главного героя (ГГ) выравниваются по центру экрана игры
         self.y = HEIGHT / 2
         self.size = HUMAN_SIZE  # размеры главного героя
@@ -26,14 +27,11 @@ class Humans:
         self.zombies = zombies
         self.image_humans = []
         self.i = 0
+        self.j = 0
+        self.shots_animation = False
 
-
-        a = 2.8     # уменьшаем картинку в А раз TODO
-        for image_name in image_names:
-            image_human = pg.image.load(image_name).convert_alpha()
-            image_human = pg.transform.scale(image_human, (image_human.get_width() // a, image_human.get_height() // a))
-            self.image_humans.append(image_human)
-
+        self.image_humans = load_image('rifle', 'idle', 20)  # загружает картинки
+        self.image_humans_shoot = load_image('rifle', 'shoot', 3)
 
     def move(self):
         """
@@ -56,14 +54,23 @@ class Humans:
 
         self.angle = count_angle(mouse_x, mouse_y, self.x, self.y)
 
-        n = 10
-        self.rect = self.draw.rotation(self.x, self.y, self.image_humans[self.i // n], self.angle)
-
-        if self.i == 19 * n:
-            self.i = 0
+        if self.shots_animation:    # TODO
+            n = 4  # анимация выстрела со скоростью n (без движения)
+            self.rect = self.draw.rotation(self.x, self.y, self.image_humans_shoot[self.j // n], self.angle)
+            if self.j == 2 * n:
+                self.i = 0
+                self.j = 0
+                self.shots_animation = False
+            else:
+                self.j += 1
         else:
-            self.i += 1
-
+            n = 10  # анимация героя со скоростью n (без движения)
+            self.rect = self.draw.rotation(self.x, self.y, self.image_humans[self.i // n], self.angle)
+            if self.i == 19 * n:
+                self.i = 0
+                self.j = 0
+            else:
+                self.i += 1
 
         self.zombie_attack_test()
 
@@ -78,6 +85,7 @@ class Humans:
         Функция, которая создает пули
         """
         self.shots = True
+        self.shots_animation = True
         bullet = Bullets(self)
         self.bullet_list.append(bullet)
 
@@ -111,7 +119,3 @@ class Humans:
                     self.draw.writes_text('YOU LOSE')
                     time.sleep(2)
                     exit()
-
-    def open_image(self):
-        human_image_names = load_image('rifle', 'idle', 20)
-        human_shoot_image_names = load_image('rifle', 'shoot', 3)

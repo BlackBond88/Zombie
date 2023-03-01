@@ -3,7 +3,6 @@ from events import *
 # from weapons import *
 from humans import *
 from zombie import *
-from load import *
 
 
 def run_game():
@@ -24,14 +23,7 @@ def run_game():
         zombie = Zombies()
         zombies.append(zombie)
 
-
-    human_image_names = load_image('rifle', 'idle', 20)
-    human_shoot_image_names = load_image('rifle', 'shoot', 3)
-    # human_image_names_all = [human_image_names + human_shoot_image_names]
-
-
-
-    human = Humans(human_image_names, HUMAN_SPEED, screen, draw, zombies)  # создаем главного героя
+    human = Humans(HUMAN_SPEED, screen, draw, zombies)  # создаем главного героя
 
     # pistol = Weapons(human)                             # создаем оружие (пистолет)
 
