@@ -27,7 +27,8 @@ class Humans:
         self.image_humans = []
         self.i = 0
 
-        a = 2.8     # TODO
+
+        a = 2.8     # уменьшаем картинку в А раз TODO
         for image_name in image_names:
             image_human = pg.image.load(image_name).convert_alpha()
             image_human = pg.transform.scale(image_human, (image_human.get_width() // a, image_human.get_height() // a))
@@ -58,7 +59,7 @@ class Humans:
         n = 10
         self.rect = self.draw.rotation(self.x, self.y, self.image_humans[self.i // n], self.angle)
 
-        if self.i == 18 * n:
+        if self.i == 19 * n:
             self.i = 0
         else:
             self.i += 1
@@ -110,3 +111,7 @@ class Humans:
                     self.draw.writes_text('YOU LOSE')
                     time.sleep(2)
                     exit()
+
+    def open_image(self):
+        human_image_names = load_image('rifle', 'idle', 20)
+        human_shoot_image_names = load_image('rifle', 'shoot', 3)
