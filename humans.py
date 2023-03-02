@@ -26,12 +26,16 @@ class Humans:
         self.draw = human_draw
         self.zombies = zombies
         self.image_humans = []
-        self.i = 0
-        self.j = 0
+        self.counter_idle = 0
+        self.counter_shoot = 0
+        self.counter_move = 0
+        self.counter_feet = 0
         self.shots_animation = False
 
         self.image_humans = load_image('rifle', 'idle', 20)  # загружает картинки
         self.image_humans_shoot = load_image('rifle', 'shoot', 3)
+        self.image_humans_move = load_image('rifle', 'move', 20)
+        self.image_humans_feet = load_image('feet', 'run', 20)
 
     def move(self):
         """
@@ -54,23 +58,7 @@ class Humans:
 
         self.angle = count_angle(mouse_x, mouse_y, self.x, self.y)
 
-        if self.shots_animation:    # TODO
-            n = 4  # анимация выстрела со скоростью n (без движения)
-            self.rect = self.draw.rotation(self.x, self.y, self.image_humans_shoot[self.j // n], self.angle)
-            if self.j == 2 * n:
-                self.i = 0
-                self.j = 0
-                self.shots_animation = False
-            else:
-                self.j += 1
-        else:
-            n = 10  # анимация героя со скоростью n (без движения)
-            self.rect = self.draw.rotation(self.x, self.y, self.image_humans[self.i // n], self.angle)
-            if self.i == 19 * n:
-                self.i = 0
-                self.j = 0
-            else:
-                self.i += 1
+        self.animation()
 
         self.zombie_attack_test()
 
@@ -119,3 +107,43 @@ class Humans:
                     self.draw.writes_text('YOU LOSE')
                     time.sleep(2)
                     exit()
+
+    def animation(self):
+        n_image_humans_idle = 20 - 1
+        n_image_humans_shoot = 3 - 1
+        n_image_humans_move = 20 - 1
+        speed_animation_idle = 10
+        speed_animation_shoot = 4
+        speed_animation_move = 4
+
+        if self.move_up or self.move_down or self.move_left or self.move_right:
+            self.rect = self.draw.rotation(self.x, self.y,
+                                           self.image_humans_feet[self.counter_feet // speed_animation_move],
+                                           self.angle)
+            if self.counter_feet == n_image_humans_move * speed_animation_move:
+                self.counter_feet = 0
+            else:
+                self.counter_feet += 1
+        if self.shots_animation:    # TODO
+
+            self.rect = self.draw.rotation(self.x, self.y, self.image_humans_shoot[self.counter_shoot // speed_animation_shoot], self.angle)
+
+            if self.counter_shoot == n_image_humans_shoot * speed_animation_shoot:
+                self.counter_shoot = 0
+                self.shots_animation = False
+            else:
+                self.counter_shoot += 1
+        elif self.move_up or self.move_down or self.move_left or self.move_right:
+            self.rect = self.draw.rotation(self.x, self.y,
+                                           self.image_humans_move[self.counter_move // speed_animation_move],
+                                           self.angle)
+            if self.counter_move == n_image_humans_move * speed_animation_move:
+                self.counter_move = 0
+            else:
+                self.counter_move += 1
+        else:
+            self.rect = self.draw.rotation(self.x, self.y, self.image_humans[self.counter_idle // speed_animation_idle], self.angle)
+            if self.counter_idle == n_image_humans_idle * speed_animation_idle:
+                self.counter_idle = 0
+            else:
+                self.counter_idle += 1
